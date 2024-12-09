@@ -56,9 +56,6 @@ export default class Text {
         // _ctx.fillStyle = "red"
         // _ctx.fillRect(this.x, this.y - (this.height / 2), this.width, this.height)
         _ctx.font = `${this.fontSize}px Coolvetica`
-        _ctx.lineWidth = 1
-        _ctx.fillStyle = '#FFF'
-        _ctx.strokeStyle = '#FFF'
         _ctx.textAlign = 'left'
         _ctx.textBaseline = 'middle'
         _ctx.fillText(this.str, this.x, this.y)

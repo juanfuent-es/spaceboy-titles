@@ -44,6 +44,9 @@ class OpeningTitle extends Canvas {
 
     render() {
         this.clear()
+        this.context.lineWidth = 1
+        this.context.strokeStyle = '#FFF'
+        this.context.fillStyle = '#FFF'
         this.txt.draw(this.context)
         // this.qr.draw(this.context)
         this.frame.draw(this.context)

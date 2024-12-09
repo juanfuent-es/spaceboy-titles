@@ -1,62 +1,41 @@
 export default class Frame {
     constructor() {
-        this.width = 0
-        this.height = 0
+        this.width = 0;
+        this.height = 0;
         this.center = {
             x: 0,
             y: 0
-        }
+        };
     }
 
     onResize(_width, _height, _center) {
-        this.width = _width
-        this.height = _height
-        this.center = _center
+        this.width = _width;
+        this.height = _height;
+        this.center = _center;
     }
 
     draw(_ctx) {
         _ctx.save()
-        _ctx.strokeStyle = "#FFF"
-        _ctx.strokeRect(this.width * .05, this.height * .05, this.width * .9, this.height * .9)
-        _ctx.strokeRect(this.width * .1, this.height * .1, this.width * .8, this.height * .8)
-        // lines
-        this.top(_ctx)
-        this.left(_ctx)
-        this.right(_ctx)
-        this.bottom(_ctx)
-        //
+        // Draw rectangles
+        const rects = [
+            { x: this.width * 0.05, y: this.height * 0.05, w: this.width * 0.9, h: this.height * 0.9 },
+            { x: this.width * 0.1, y: this.height * 0.1, w: this.width * 0.8, h: this.height * 0.8 }
+        ];
+        rects.forEach(rect => _ctx.strokeRect(rect.x, rect.y, rect.w, rect.h))
+        // Draw lines
+        const lines = [
+            { moveTo: [0, this.center.y], lineTo: [this.width * 0.075, this.center.y] }, // left
+            { moveTo: [this.width, this.center.y], lineTo: [this.width * 0.925, this.center.y] }, // right
+            { moveTo: [this.center.x, 0], lineTo: [this.center.x, this.height * 0.075] }, // top
+            { moveTo: [this.center.x, this.height], lineTo: [this.center.x, this.height * 0.925] } // bottom
+        ]
+        lines.forEach(line => {
+            _ctx.beginPath()
+            _ctx.moveTo(...line.moveTo)
+            _ctx.lineTo(...line.lineTo)
+            _ctx.closePath()
+            _ctx.stroke()
+        })
         _ctx.restore()
-    }
-
-    left(_ctx) {
-        _ctx.beginPath()
-        _ctx.moveTo(0, this.center.y)
-        _ctx.lineTo(this.width * .075, this.center.y)
-        _ctx.closePath()
-        _ctx.stroke()
-    }
-
-    right(_ctx) {
-        _ctx.beginPath()
-        _ctx.moveTo(this.width, this.center.y)
-        _ctx.lineTo(this.width * .925, this.center.y)
-        _ctx.closePath()
-        _ctx.stroke()
-    }
-
-    top(_ctx) {
-        _ctx.beginPath()
-        _ctx.moveTo(this.center.x, 0)
-        _ctx.lineTo(this.center.x, this.height * .075)
-        _ctx.closePath()
-        _ctx.stroke()
-    }
-
-    bottom(_ctx) {
-        _ctx.beginPath()
-        _ctx.moveTo(this.center.x, this.height)
-        _ctx.lineTo(this.center.x, this.height * .925)
-        _ctx.closePath()
-        _ctx.stroke()
     }
 }
