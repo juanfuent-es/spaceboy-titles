@@ -68,4 +68,12 @@ canvas {
   height: 100%;
   z-index: -1;
   pointer-events: none;
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
 }

@@ -8,6 +8,14 @@ export default class Canvas {
         this.canvas = document.createElement("canvas")
         this.container.appendChild(this.canvas)
         this.context = this.canvas.getContext("2d")
+        this.pixelize()
+    }
+
+    pixelize() {
+        this.context.webkitImageSmoothingEnabled = false
+        this.context.mozImageSmoothingEnabled = false
+        this.context.msImageSmoothingEnabled = false
+        this.context.imageSmoothingEnabled = false
     }
 
     setSize(_width, _height) {

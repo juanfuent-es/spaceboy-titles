@@ -25,9 +25,11 @@ export default class Text {
         _ctx.translate(this.offset.x, this.offset.y)
         _ctx.font = `${this.fontSize}px Coolvetica`
         _ctx.fillStyle = '#FFF'
+        _ctx.lineWidth = 2
+        _ctx.strokeStyle = '#FFF'
         _ctx.textAlign = 'center'
         _ctx.textBaseline = 'middle'
-        _ctx.fillText(this.str, this.x, this.y)
+        _ctx.strokeText(this.str, this.x, this.y)
         _ctx.restore()
     }
     
