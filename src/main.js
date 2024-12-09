@@ -22,6 +22,7 @@ class OpeningTitle extends Canvas {
     addEvents() {
         document.fonts.ready.then(() => {
             this.txt = new Text(this.title)
+            this.txt.show()
             // dimensions
             this.onResize()
             this.animate()

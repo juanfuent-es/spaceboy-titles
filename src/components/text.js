@@ -1,7 +1,9 @@
+import { gsap } from 'gsap'
 export default class Text {
     constructor(_title) {
         this.title = _title
-        this.str = this.title.innerHTML.toUpperCase()
+        this.text = this.title.innerHTML.toUpperCase()
+        this.str = ''
         //
         this.offset = { x: 0, y: 0 }
         this.fontSize = 34
@@ -9,6 +11,24 @@ export default class Text {
         this._y = 0
 
         this.setup()
+    }
+
+    show() {
+        let index = 0
+        const randomChars = '-#/&%$·!¡?=)(/\\|@·$%&/()=?¡!·'
+        const chars = this.text.split('');
+        chars.forEach((char, index) => {
+            gsap.to({}, {
+                duration: 0.05 * index,
+                onComplete: () => {
+                    this.str += char
+                }
+            })
+        })
+    }
+
+    hide() {
+
     }
 
     setup() {
