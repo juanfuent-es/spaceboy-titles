@@ -26,7 +26,6 @@ class OpeningTitle extends Canvas {
             // dimensions
             this.onResize()
             this.animate()
-            console.log("FontsLoaded")
         })
         //
         window.addEventListener('resize', () => this.onResize())

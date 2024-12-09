@@ -7,39 +7,42 @@ export default class Text {
         //
         this.offset = { x: 0, y: 0 }
         this.fontSize = 28
-
         this.setup()
-    }
-
-    show() {
-        this.str = '';
-        const randomChars = '-#/·=';
-        const chars = this.text.split('');
-        const maxRandomChanges = 2; // Number of random changes before showing the final character
-
-        chars.forEach((char, index) => {
-            let randomChangeCount = 0;
-
-            const animateChar = () => {
-                if (randomChangeCount < maxRandomChanges) {
-                    const randomChar = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-                    this.str = this.text.slice(0, index) + randomChar;
-                    randomChangeCount++;
-                    gsap.to({}, { duration: 0.05, onComplete: animateChar });
-                } else {
-                    this.str = this.text.slice(0, index + 1);
-                }
-            }
-            gsap.to({}, { delay: 0.1 * index, onComplete: animateChar });
-        });
-    }
-
-    hide() {
-
+        this.createTimeline()
     }
 
     setup() {
         this.title.style.color = 'transparent'
+    }
+
+    createTimeline() {
+        const chars = this.text.split('');
+        this.timeline = gsap.timeline({
+            paused: true, onComplete: () => {
+                this.str = this.text
+            }
+        })
+        chars.forEach((char, index) => this.animateChar(index))
+    }
+
+    animateChar(charIdx) {
+        const duration = 1; // Duration for each random change
+        const randomChars = '-/·=+*^%$#@!¡?¿';
+        this.timeline.to({}, {
+            duration: duration,
+            onComplete: () => {
+                let extraChar = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+                this.str = this.text.slice(0, charIdx) + extraChar
+            }
+        })
+    }
+
+    show() {
+        this.timeline.duration(.8).play()
+    }
+
+    hide() {
+        this.str = ""
     }
 
     onResize(_offset) {
@@ -61,7 +64,7 @@ export default class Text {
         _ctx.fillText(this.str, this.x, this.y)
         _ctx.restore()
     }
-    
+
     getFontSize() {
         const style = window.getComputedStyle(this.title, null)
         return parseFloat(style.getPropertyValue('font-size'))
