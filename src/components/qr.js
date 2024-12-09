@@ -3,8 +3,8 @@ import QRCodeStyling from 'qr-code-styling'
 export default class QR {
     constructor() {
         this.code = new QRCodeStyling({
-            width: 100,
-            height: 100,
+            width: 300,
+            height: 300,
             type: "svg",
             data: window.location.href,
             image: "/logo.svg",
@@ -17,7 +17,7 @@ export default class QR {
             },
             imageOptions: {
                 crossOrigin: "anonymous",
-                margin: 15
+                margin: 10
             }
         })
         const img = new Image()
@@ -37,9 +37,9 @@ export default class QR {
 
     draw(_ctx) {
         if (this.qrImage) {
-            this.context.save()
-            this.context.drawImage(this.qrImage, this.x, this.y, this.size, this.size)
-            this.context.restore()
+            _ctx.save()
+            _ctx.drawImage(this.qrImage, this.x, this.y, this.size, this.size)
+            _ctx.restore()
         }
     }
 }

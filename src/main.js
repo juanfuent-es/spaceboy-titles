@@ -18,7 +18,7 @@ class OpeningTitle extends Canvas {
             y: this.height / 2
         }
         //
-        // this.qr = new QR()
+        this.qr = new QR()
         this.frame = new Frame()
         this.addEvents()
     }
@@ -47,9 +47,10 @@ class OpeningTitle extends Canvas {
         this.context.lineWidth = 1
         this.context.strokeStyle = '#FFF'
         this.context.fillStyle = '#FFF'
-        this.txt.draw(this.context)
-        // this.qr.draw(this.context)
+        //
         this.frame.draw(this.context)
+        this.qr.draw(this.context)
+        this.txt.draw(this.context)
         // frame
     }    
 
@@ -66,6 +67,7 @@ class OpeningTitle extends Canvas {
         //
         if (this.frame) this.frame.onResize(width, height , this.center)
         if (this.txt) this.txt.onResize(this.center)
+        if (this.qr) this.qr.onResize(this.center, this.width * .2)
     }
 
     get rect() {
