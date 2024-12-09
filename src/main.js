@@ -6,7 +6,8 @@ class OpeningTitle extends Canvas {
         super(_container)
         this.container = _container
         this.title = this.container.querySelector('h1')
-        this.txt = new Text(this.title)
+        // objects
+        this.txt = null
         // dimensions
         this.width = this.rect.width
         this.height = this.rect.height
@@ -19,6 +20,13 @@ class OpeningTitle extends Canvas {
     }
 
     addEvents() {
+        document.fonts.ready.then(() => {
+            this.txt = new Text(this.title)
+            // dimensions
+            this.onResize()
+            console.log("FontsLoaded")
+        })
+        //
         window.addEventListener('resize', () => this.onResize())
         this.onResize()
     }
@@ -31,6 +39,8 @@ class OpeningTitle extends Canvas {
         }
         this.setSize(width, height)
         this.clear()
+        //
+        if (this.txt) this.txt.onResize()
     }
 
     get rect() {
