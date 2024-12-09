@@ -24,11 +24,22 @@ class OpeningTitle extends Canvas {
             this.txt = new Text(this.title)
             // dimensions
             this.onResize()
+            this.animate()
             console.log("FontsLoaded")
         })
         //
         window.addEventListener('resize', () => this.onResize())
         this.onResize()
+    }
+
+    animate() {
+        requestAnimationFrame(() => this.animate())
+        this.render()
+    }
+
+    render() {
+        this.clear()
+        this.txt.draw(this.context)
     }
 
     onResize() {
@@ -40,7 +51,7 @@ class OpeningTitle extends Canvas {
         this.setSize(width, height)
         this.clear()
         //
-        if (this.txt) this.txt.onResize()
+        if (this.txt) this.txt.onResize(this.center)
     }
 
     get rect() {
