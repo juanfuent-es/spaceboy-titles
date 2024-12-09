@@ -39,8 +39,8 @@ class OpeningTitle extends Canvas {
         this.animate()
         this.onResize()
         this.frame.show()
+        this.txt.show()
         gsap.delayedCall(.65, () => {
-            this.txt.show()
         })
     }
 

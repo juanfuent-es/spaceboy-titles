@@ -7,7 +7,7 @@ export default class Frame {
             x: 0,
             y: 0
         }
-        this.scale = 2
+        this.scale = Math.random() * 2
         this.alpha = 0
     }
 

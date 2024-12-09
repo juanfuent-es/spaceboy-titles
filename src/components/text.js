@@ -4,6 +4,7 @@ export default class Text {
         this.title = _title
         this.text = this.title.innerHTML.toUpperCase()
         this.str = ''
+        this.stroked = false
         //
         this.offset = { x: 0, y: 0 }
         this.fontSize = 28
@@ -20,6 +21,7 @@ export default class Text {
         this.timeline = gsap.timeline({
             paused: true, onComplete: () => {
                 this.str = this.text
+                this.stroked = false
             }
         })
         chars.forEach((char, index) => this.animateChar(index))
@@ -33,12 +35,13 @@ export default class Text {
             onComplete: () => {
                 let extraChar = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
                 this.str = this.text.slice(0, charIdx) + extraChar
+                this.stroked = Math.random() > .5
             }
         })
     }
 
     show() {
-        this.timeline.duration(.8).play()
+        this.timeline.duration(1).play()
     }
 
     hide() {
@@ -58,7 +61,11 @@ export default class Text {
         _ctx.font = `${this.fontSize}px Coolvetica`
         _ctx.textAlign = 'left'
         _ctx.textBaseline = 'middle'
-        _ctx.fillText(this.str, this.x, this.y)
+        if (this.stroked) {
+            _ctx.strokeText(this.str, this.x, this.y)
+        } else {
+            _ctx.fillText(this.str, this.x, this.y)
+        }
         _ctx.restore()
     }
 

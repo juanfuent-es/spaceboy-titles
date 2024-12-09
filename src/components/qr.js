@@ -5,7 +5,7 @@ export default class QR {
         this.size = 0;
         this.x = 0;
         this.y = 0;
-        this.scale = 0
+        this.scale = 1.5
         this.alpha = 1;
         this.qrImage = null;
         this.code = new QRCodeStyling({
@@ -19,7 +19,7 @@ export default class QR {
                 type: "square"
             },
             backgroundOptions: {
-                color: "#000",
+                color: "transparent",
             },
             imageOptions: {
                 crossOrigin: "anonymous",
@@ -47,10 +47,10 @@ export default class QR {
         if (this.qrImage) {
             gsap.to(this, { 
                 scale: 2,
-                duration: 1,
-                ease: "steps(8)",
+                duration: .6,
+                ease: "steps(4)",
                 onUpdate: () => {
-                    this.alpha = Math.random() > .7 ? 0 : 1
+                    this.alpha = Math.random() > .8 ? 0 : 1
                 },
                 onComplete: () => {
                     this.alpha = 0
