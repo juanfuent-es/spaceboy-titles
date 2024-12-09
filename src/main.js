@@ -1,6 +1,8 @@
 import './style.css'
 import Canvas from './lib/canvas'
 import Text from './components/text'
+import QR from './components/qr'
+import Frame from './components/frame'
 class OpeningTitle extends Canvas {
     constructor(_container) {
         super(_container)
@@ -16,9 +18,11 @@ class OpeningTitle extends Canvas {
             y: this.height / 2
         }
         //
+        // this.qr = new QR()
+        this.frame = new Frame()
         this.addEvents()
     }
-
+    
     addEvents() {
         document.fonts.ready.then(() => {
             this.txt = new Text(this.title)
@@ -30,6 +34,7 @@ class OpeningTitle extends Canvas {
         //
         window.addEventListener('resize', () => this.onResize())
         this.onResize()
+        //
     }
 
     animate() {
@@ -40,43 +45,10 @@ class OpeningTitle extends Canvas {
     render() {
         this.clear()
         this.txt.draw(this.context)
+        // this.qr.draw(this.context)
+        this.frame.draw(this.context)
         // frame
-        this.drawFrame(this.context)
-    }
-
-    drawFrame(_ctx) {
-        _ctx.save()
-        _ctx.strokeStyle = "#FFF"
-        _ctx.strokeRect(this.width * .05, this.height * .05, this.width * .9, this.height * .9)
-        _ctx.strokeRect(this.width * .1, this.height * .1, this.width * .8, this.height * .8)
-        // lines
-        //top
-        _ctx.beginPath()
-        _ctx.moveTo(this.center.x, 0)
-        _ctx.lineTo(this.center.x, this.height * .075)
-        _ctx.closePath()
-        _ctx.stroke()
-        // left
-        _ctx.beginPath()
-        _ctx.moveTo(0, this.center.y)
-        _ctx.lineTo(this.width * .075, this.center.y)
-        _ctx.closePath()
-        _ctx.stroke()
-        // right
-        _ctx.beginPath()
-        _ctx.moveTo(this.width, this.center.y)
-        _ctx.lineTo(this.width * .925, this.center.y)
-        _ctx.closePath()
-        _ctx.stroke()
-        // bottom
-        _ctx.beginPath()
-        _ctx.moveTo(this.center.x, this.height)
-        _ctx.lineTo(this.center.x, this.height * .925)
-        _ctx.closePath()
-        _ctx.stroke()
-        //
-        _ctx.restore()
-    }
+    }    
 
     onResize() {
         const { width, height } = this.rect
@@ -89,10 +61,8 @@ class OpeningTitle extends Canvas {
         this.setSize(width, height)
         this.clear()
         //
-        if (this.txt) {
-            this.txt.onResize(this.center)
-            console.log("Resize")
-        }
+        if (this.frame) this.frame.onResize(width, height , this.center)
+        if (this.txt) this.txt.onResize(this.center)
     }
 
     get rect() {
