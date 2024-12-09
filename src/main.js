@@ -45,6 +45,8 @@ class OpeningTitle extends Canvas {
 
     onResize() {
         const { width, height } = this.rect
+        this.width = width
+        this.height = height
         this.center = {
             x: this.width / 2,
             y: this.height / 2
@@ -52,7 +54,10 @@ class OpeningTitle extends Canvas {
         this.setSize(width, height)
         this.clear()
         //
-        if (this.txt) this.txt.onResize(this.center)
+        if (this.txt) {
+            this.txt.onResize(this.center)
+            console.log("Resize")
+        }
     }
 
     get rect() {
